@@ -6,14 +6,14 @@ RUN add-apt-repository ppa:x2go/stable
 RUN apt-get update -y
 RUN apt-get install x2goserver x2goserver-xsession x2golxdebindings pwgen firefox pulseaudio libcurl3 libappindicator1 -y
 RUN add-apt-repository ppa:nightuser/qtcreator
+RUN add-apt-repository ppa:gophers/archive
 RUN apt-get update
-RUN apt-get install qtcreator -y
+RUN apt-get install qtcreator golang-1.8 fish vim nano ccache htop -y
 RUN mkdir -p /var/run/sshd && sed -i "s/UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g" /etc/ssh/sshd_config && sed -i "s/UsePAM.*/UsePAM no/g" /etc/ssh/sshd_config
 RUN sed -i "s/PermitRootLogin.*/PermitRootLogin yes/g" /etc/ssh/sshd_config
 RUN sed -i "s/#PasswordAuthentication/PasswordAuthentication/g" /etc/ssh/sshd_config
 ADD set_root_pw.sh /set_root_pw.sh
 ADD run.sh /run.sh
 RUN chmod +x /*.sh
-#RUN sed -i '/.*mesg.*/d' /.profile
 EXPOSE 22
 CMD ["/run.sh"]
