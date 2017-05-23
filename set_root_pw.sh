@@ -10,7 +10,7 @@ _word=$( [ ${ROOT_PASS} ] && echo "preset" || echo "random" )
 echo "=> Setting a ${_word} password to the root user"
 echo "root:$PASS" | chpasswd
 
-adduser --disabled-password --gecos "" dockerx 
+adduser --disabled-password --gecos "" --shell /usr/bin/fish dockerx
 adduser dockerx sudo
 
 DPASS=$(pwgen -s 12 1)
